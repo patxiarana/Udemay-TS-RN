@@ -8,6 +8,7 @@ interface Props {}
 const  App: FC<Props> = (props) : JSX.Element => {
   return (
     <View>
+      <Text>Probando Render</Text>
       <Home/>
  </View>
   );
