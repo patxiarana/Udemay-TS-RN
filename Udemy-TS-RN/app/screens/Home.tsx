@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import {StyleSheet, TouchableOpacity, View,Text} from 'react-native';
-import { Entypo, AntDesign  } from '@expo/vector-icons';  
+import { Entypo, AntDesign  } from '@expo/vector-icons'; 
+import LargeIconButton from '../components/LargeIconButton'; 
 interface Props {}
 const Home: FC<Props> = (): JSX.Element => {
   return <View style={styles.container}>
@@ -14,21 +15,30 @@ const Home: FC<Props> = (): JSX.Element => {
       </View>
    
      {/* Image Capture  Button  */ }
-    <View  style={styles.btnContainer}>
+
+  <LargeIconButton title='Capture'>
+  <Entypo name="camera" />
+  </LargeIconButton>
+
+   {/* <View  style={styles.btnContainer}>
   <TouchableOpacity style={styles.button}>
   <Entypo name="camera" style={styles.icon} />
   </TouchableOpacity>
   <Text style={styles.btnLabel}>Capture</Text>
-  </View>
+</View> */}
 
       {/* Image Select Button  */ }
-  <View  style={styles.btnContainer}>
+ <LargeIconButton title='Select'>
+ <AntDesign name="folderopen"/>
+  </LargeIconButton>
+      
+{/* <View  style={styles.btnContainer}>
   <TouchableOpacity style={styles.button}>
   <AntDesign name="folderopen" style={styles.icon} />
   </TouchableOpacity>
   <Text style={styles.btnLabel}>Select</Text>
-  </View >
-  </View>;
+  </View >*/}
+</View>; 
 };
 
 const styles = StyleSheet.create({
