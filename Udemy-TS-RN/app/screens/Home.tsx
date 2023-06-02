@@ -8,12 +8,15 @@ const Home: FC<Props> = (): JSX.Element => {
     <View  style={styles.btnContainer}>
   <TouchableOpacity style={styles.button}>
   </TouchableOpacity>
-  <Text>Capture</Text>
+  <Text style={styles.btnLabel}>Capture</Text>
   </View>
 
       {/* Image Select Button  */ }
-  <TouchableOpacity style={styles.btnContainer}>
+  <View  style={styles.btnContainer}>
+  <TouchableOpacity style={styles.button}>
   </TouchableOpacity>
+  <Text style={styles.btnLabel}>Select</Text>
+  </View >
   </View>;
 };
 
@@ -30,9 +33,15 @@ const styles = StyleSheet.create({
     marginVertical : 25 , 
 }, 
 button: {
-    borderWidth : 4 ,
+    width : '100%',
+    height : '100%',
+     borderWidth : 4 ,
     borderColor : '#6C9ADE' ,
     borderRadius : 7 , 
+},
+btnLabel:{
+    textAlign : 'center' , 
+    fontWeight : '500' , 
 }
 });
 
