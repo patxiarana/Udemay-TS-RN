@@ -22,10 +22,10 @@ const Home: FC<Props> = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1 ,
+  //  flex: 1 ,
    justifyContent : 'center', 
    alignItems : 'center' , 
-   display: 'none', 
+  // display: 'none', 
   },
   btnContainer : {
     width : 120 ,
