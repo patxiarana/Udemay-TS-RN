@@ -2,53 +2,17 @@ import { FC } from 'react';
 import {StyleSheet,PermissionsAndroid, View,Text,Alert} from 'react-native';
 import { Entypo, AntDesign  } from '@expo/vector-icons'; 
 import LargeIconButton from '../components/LargeIconButton'; 
+import { RequestCameraPermission } from '../utils/helper';
+
+
+
 interface Props {}
 const Home: FC<Props> = (): JSX.Element => {
-  const handleImageCapture = async (): Promise<void> => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: 'Camera Permission',
-          message:
-            'You have to accept the permission. Only then you will be able to take the picture',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-     console.log(granted);
-     const {NEVER_ASK_AGAIN, DENIED} = PermissionsAndroid.RESULTS;
-      if (granted === NEVER_ASK_AGAIN)
-        return Alert.alert(
-          'Failed to open camera',
-          "It's looks like you have disabled the camera permission for this app! Please change the setting first.",
-        );
-
-      if (granted === DENIED)
-        return Alert.alert(
-          'Failed to open camera',
-          'Sorry but to use this feature you have to accept the CAMERA PERMISSION!',
-        );
-    } catch (error) {
-      console.log('Fail to open camera, error inside camera permission', error);
-    }
-  };
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-  return <View style={styles.container}>
+ return <View style={styles.container}>
       {/* App Titles */}
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Choose Your Image</Text>
@@ -60,7 +24,7 @@ const Home: FC<Props> = (): JSX.Element => {
    
      {/* Image Capture  Button  */ }
 
-  <LargeIconButton title='Capture' onPress={handleImageCapture}>
+  <LargeIconButton title='Capture' onPress={RequestCameraPermission}>
   <Entypo name="camera" />
   </LargeIconButton>
 
