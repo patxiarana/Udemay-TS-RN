@@ -9,7 +9,7 @@ import React, {
   
   interface Props {
     title: string;
-    onPress?: () => void;
+    onPress?: any ;
     children?: ReactNode;
   }
   

@@ -1,18 +1,27 @@
 import { FC } from 'react';
-import {StyleSheet,PermissionsAndroid, View,Text,Alert} from 'react-native';
+import {StyleSheet,PermissionsAndroid, View,Text,Alert, Button,TouchableOpacity,} from 'react-native';
 import { Entypo, AntDesign  } from '@expo/vector-icons'; 
 import LargeIconButton from '../components/LargeIconButton'; 
-import { RequestCameraPermission } from '../utils/helper';
-
-
+import RequestCameraPermission from '../utils/helper';
+import { Camera, CameraType } from 'expo-camera';
+import { useState } from 'react';
 
 interface Props {}
+
 const Home: FC<Props> = (): JSX.Element => {
 
+  const [type, setType] = useState(CameraType.back);
+  const [permission, requestPermission] = Camera.useCameraPermissions();
 
+  if (!permission) {
+    // Camera permissions are still loading
+    return <View />;
+  }
 
-
- return <View style={styles.container}>
+  if (!permission.granted) {
+    // Camera permissions are not granted yet
+    return (
+        <View style={styles.container}>
       {/* App Titles */}
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Choose Your Image</Text>
@@ -21,33 +30,34 @@ const Home: FC<Props> = (): JSX.Element => {
           convert to passport size.
         </Text>
       </View>
-   
-     {/* Image Capture  Button  */ }
-
-  <LargeIconButton title='Capture' onPress={RequestCameraPermission}>
+      
+  <LargeIconButton title='Capture' onPress={requestPermission}>
   <Entypo name="camera" />
   </LargeIconButton>
-
-   {/* <View  style={styles.btnContainer}>
-  <TouchableOpacity style={styles.button}>
-  <Entypo name="camera" style={styles.icon} />
-  </TouchableOpacity>
-  <Text style={styles.btnLabel}>Capture</Text>
-</View> */}
-
-      {/* Image Select Button  */ }
- <LargeIconButton title='Select'>
+  <LargeIconButton title='Select'>
  <AntDesign name="folderopen"/>
   </LargeIconButton>
-      
-{/* <View  style={styles.btnContainer}>
-  <TouchableOpacity style={styles.button}>
-  <AntDesign name="folderopen" style={styles.icon} />
-  </TouchableOpacity>
-  <Text style={styles.btnLabel}>Select</Text>
-  </View >*/}
-</View>; 
-};
+  </View>
+    );
+  }
+  
+  function toggleCameraType() {
+    setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+  }
+
+  return (
+    <View style={styles.containerCamera}>
+      <Camera style={styles.camera} type={type}>
+        <View style={styles.buttonContainerCamera}>
+          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
+            <Text style={styles.textCamera}>Flip Camera</Text>
+          </TouchableOpacity>
+        </View>
+      </Camera>
+    </View>
+  )
+}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -98,6 +108,24 @@ btnLabel:{
 icon : {
     fontSize:55,
     color:"#6C9ADE",
+},
+camera: {
+  flex: 0,
+},
+buttonContainerCamera: {
+ // flex: 1,
+  flexDirection: 'row',
+  backgroundColor: 'transparent',
+  margin: 100,
+},
+textCamera: {
+  fontSize: 24,
+  fontWeight: 'bold',
+  color: 'white',
+},
+containerCamera: {
+ // flex: 1,
+  justifyContent: 'center',
 }
 });
 
